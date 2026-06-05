@@ -1,11 +1,10 @@
-import { defineConfig } from '@prisma/config';
-
-// Explicitly load the .env file so process.env isn't empty
-process.loadEnvFile();
+import 'dotenv/config';
+import { defineConfig, env } from '@prisma/config';
 
 export default defineConfig({
+  schema: 'prisma/schema.prisma',
   datasource: {
-    url: process.env.DATABASE_URL,
-    directUrl: process.env.DIRECT_URL,
+    // This forces the CLI to use your direct port (5432) so migrations don't freeze
+    url: env('DIRECT_URL'),
   },
 });
