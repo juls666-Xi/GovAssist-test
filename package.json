@@ -55,7 +55,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.30",
     "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",fKjT9zZq2vX7yY6uI8oP0wQ3rE5sT1uV2wX4yZ6aB8cD0eF2gH4iJ6kL8mN0oP2
+    "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-config-next": "15.0.0",
