@@ -1,20 +1,14 @@
-import { NextAuthConfig } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 import { loginSchema } from "@/validators/auth";
+import { authConfig } from "./auth.config";
 
-export const authConfig: NextAuthConfig = {
+const fullAuthConfig = {
+  ...authConfig,
   adapter: PrismaAdapter(prisma),
-  session: {
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60,
-  },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
   providers: [
     Credentials({
       name: "credentials",
@@ -43,24 +37,6 @@ export const authConfig: NextAuthConfig = {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.username = user.username;
-        token.role = user.role;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id as string;
-        session.user.username = token.username as string;
-        session.user.role = token.role as string;
-      }
-      return session;
-    },
-  },
   events: {
     async signIn({ user }) {
       if (user.id) {
@@ -69,7 +45,9 @@ export const authConfig: NextAuthConfig = {
         });
       }
     },
-    async signOut({ token }) {
+    async signOut(message) {
+      const token = "token" in message ? message.token : null;
+
       if (token?.sub) {
         await prisma.auditLog.create({
           data: { userId: token.sub, action: "USER_LOGOUT", targetTable: "users", targetId: token.sub },
@@ -77,10 +55,10 @@ export const authConfig: NextAuthConfig = {
       }
     },
   },
-};
+} satisfies NextAuthConfig;
 
 import NextAuth from "next-auth";
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
+export const { handlers, auth, signIn, signOut } = NextAuth(fullAuthConfig);
 
 declare module "next-auth" {
   interface Session {
@@ -97,9 +75,6 @@ declare module "next-auth" {
     username?: string;
     role?: string;
   }
-}
-
-declare module "next-auth/jwt" {
   interface JWT {
     id?: string;
     username?: string;

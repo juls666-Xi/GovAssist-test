@@ -38,9 +38,11 @@ interface MobileNavProps {
   role: "CITIZEN" | "STAFF" | "ADMIN";
 }
 
+type PortalRoleKey = "citizen" | "staff" | "admin";
+
 export function MobileNav({ role }: MobileNavProps) {
   const pathname = usePathname();
-  const links = NAV_LINKS[role.toLowerCase() as keyof typeof NAV_LINKS] || [];
+  const links = NAV_LINKS[role.toLowerCase() as PortalRoleKey] || [];
 
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t bg-background">

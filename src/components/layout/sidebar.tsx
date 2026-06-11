@@ -42,9 +42,11 @@ interface SidebarProps {
   role: "CITIZEN" | "STAFF" | "ADMIN";
 }
 
+type PortalRoleKey = "citizen" | "staff" | "admin";
+
 export function Sidebar({ role }: SidebarProps) {
   const pathname = usePathname();
-  const links = NAV_LINKS[role.toLowerCase() as keyof typeof NAV_LINKS] || [];
+  const links = NAV_LINKS[role.toLowerCase() as PortalRoleKey] || [];
 
   return (
     <div className="hidden lg:flex flex-col w-64 border-r bg-background h-screen sticky top-0">
