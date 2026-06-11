@@ -198,7 +198,7 @@ export default function HomePage() {
               <Link href="/register">Create Account</Link>
             </Button>
             <Button size="lg" variant="outline" className="border-primary-foreground/20 hover:bg-primary-foreground/10" asChild>
-              <Link href="/contact">Contact Support</Link>
+              <Link href="/contact" className="text-black">Contact Support</Link>
             </Button>
           </div>
         </div>
