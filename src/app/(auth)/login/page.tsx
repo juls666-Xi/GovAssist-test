@@ -39,17 +39,7 @@ export default function LoginPage() {
         return;
       }
 
-      // Get session to determine redirect
-      const response = await fetch("/api/auth/session");
-      const session = await response.json();
-
-      if (session?.user?.role === "ADMIN") {
-        router.push("/admin/dashboard");
-      } else if (session?.user?.role === "STAFF") {
-        router.push("/staff/dashboard");
-      } else {
-        router.push("/citizen/dashboard");
-      }
+      router.push("/dashboard");
       router.refresh();
     } catch (err) {
       setError("An unexpected error occurred");
