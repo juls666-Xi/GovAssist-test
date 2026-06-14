@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import { APP_NAME, APP_DESCRIPTION } from "@/constants";
 
@@ -23,10 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SessionProvider>
+        <Providers>
           {children}
           <Toaster />
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );
