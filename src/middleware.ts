@@ -1,13 +1,10 @@
-import NextAuth from "next-auth";
-import { authConfig } from "@/lib/auth.config";
+import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 
 const publicRoutes = ["/", "/about", "/contact", "/programs", "/login", "/register", "/unauthorized"];
 const citizenRoutes = ["/citizen"];
 const staffRoutes = ["/staff"];
 const adminRoutes = ["/admin"];
-
-const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { nextUrl } = req;
