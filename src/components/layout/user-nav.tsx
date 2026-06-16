@@ -69,7 +69,7 @@ export function UserNav({ user }: UserNavProps) {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => signOut({ redirect: true, redirectUrl: "/" })}
+          onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
           className="text-red-600"
         >
           Sign Out
