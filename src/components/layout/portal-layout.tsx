@@ -22,7 +22,7 @@ export function PortalLayout({ children }: PortalLayoutProps) {
           <div className="mx-auto max-w-7xl">{children}</div>
         </main>
       </div>
-      <MobileNav role={role} />
+      <MobileNav />
     </div>
   );
 }
