@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/layout/navbar";
+import { useAuth } from "@/components/auth/auth-provider";
 import {
   Shield,
   FileText,
@@ -57,6 +60,8 @@ const stats = [
 ];
 
 export default function HomePage() {
+  const { openAuth } = useAuth();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -78,11 +83,9 @@ export default function HomePage() {
               track your applications, and manage documents all in one secure platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link href="/register">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+              <Button size="lg" onClick={() => openAuth("register")}>
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/programs">View Programs</Link>
@@ -194,8 +197,8 @@ export default function HomePage() {
             Join thousands of citizens who have successfully accessed government assistance through our platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/register">Create Account</Link>
+            <Button size="lg" variant="secondary" onClick={() => openAuth("register")}>
+              Create Account
             </Button>
             <Button size="lg" variant="outline" className="border-primary-foreground/20 text-black hover:bg-primary-foreground/10" asChild>
               <Link href="/contact">Contact Support</Link>
