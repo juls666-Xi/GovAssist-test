@@ -33,6 +33,7 @@ const fullAuthConfig = {
           name: user.fullName,
           username: user.username,
           role: user.role,
+          image: user.avatarUrl,
         };
       },
     }),
