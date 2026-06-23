@@ -1,6 +1,17 @@
 import type { NextAuthConfig } from "next-auth";
 
+const authSecret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+if (!authSecret) {
+  throw new Error("AUTH_SECRET or NEXTAUTH_SECRET must be set for NextAuth.");
+}
+
+const authUrl = process.env.NEXTAUTH_URL || process.env.AUTH_URL;
+if (!authUrl) {
+  throw new Error("NEXTAUTH_URL or AUTH_URL must be set for NextAuth.");
+}
+
 export const authConfig = {
+  secret: authSecret,
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
