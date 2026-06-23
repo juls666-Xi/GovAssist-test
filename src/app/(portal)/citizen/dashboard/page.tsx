@@ -1,15 +1,12 @@
 import { requireCitizen } from "@/lib/auth-helpers";
 import { prisma } from "@/lib/prisma";
 import { PageHeader } from "@/components/layout/page-header";
-import { StatsCard } from "@/components/dashboard/stats-card";
+import { DashboardStats } from "@/components/dashboard/dashboard-stats";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { formatDate } from "@/lib/utils";
 import {
   FileText,
-  Clock,
-  CheckCircle,
-  XCircle,
   Bell,
   Calendar,
   ArrowRight,
@@ -56,28 +53,12 @@ export default async function CitizenDashboardPage() {
       />
 
       {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatsCard
-          title="Total Applications"
-          value={applications.length}
-          icon={FileText}
-        />
-        <StatsCard
-          title="Pending"
-          value={totalPending}
-          icon={Clock}
-        />
-        <StatsCard
-          title="Approved"
-          value={totalApproved}
-          icon={CheckCircle}
-        />
-        <StatsCard
-          title="Rejected"
-          value={totalRejected}
-          icon={XCircle}
-        />
-      </div>
+      <DashboardStats
+        totalApplications={applications.length}
+        totalPending={totalPending}
+        totalApproved={totalApproved}
+        totalRejected={totalRejected}
+      />
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Recent Applications */}

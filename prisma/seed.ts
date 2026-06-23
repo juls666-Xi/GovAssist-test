@@ -1,9 +1,18 @@
+import 'dotenv/config';
 import { PrismaClient, UserRole, ProgramStatus, ApplicationStatus, ScheduleStatus } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
+const connectionString = process.env.DIRECT_URL || process.env.DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error("DATABASE_URL or DIRECT_URL is not set");
+}
+
+console.log("Using connection string:", connectionString.substring(0, 50) + "...");
+
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
 });
 
 const prisma = new PrismaClient({ adapter });
