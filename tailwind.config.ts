@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        heading: ["var(--font-sans)"],
+      },
       colors: {
         border: "var(--border)",
         input: "var(--input)",
@@ -65,7 +68,42 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addVariant, addUtilities }: import("tailwindcss/types/config").PluginAPI) {
+      addVariant("data-open", [
+        '&[data-state="open"]',
+        '&[data-open]:not([data-open="false"])',
+      ]);
+      addVariant("data-closed", [
+        '&[data-state="closed"]',
+        '&[data-closed]:not([data-closed="false"])',
+      ]);
+      addVariant("data-checked", '&[data-state="checked"]');
+      addVariant("data-unchecked", '&[data-state="unchecked"]');
+      addVariant("data-selected", '&[data-selected="true"]');
+      addVariant("data-disabled", [
+        '&[data-disabled="true"]',
+        '&[data-disabled]:not([data-disabled="false"])',
+      ]);
+      addVariant("data-active", [
+        '&[data-state="active"]',
+        '&[data-active]:not([data-active="false"])',
+      ]);
+      addVariant("data-horizontal", '&[data-orientation="horizontal"]');
+      addVariant("data-vertical", '&[data-orientation="vertical"]');
+
+      addUtilities({
+        ".no-scrollbar": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    },
+  ],
 };
 
 export default config;
